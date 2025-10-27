@@ -9,7 +9,7 @@ export default function LoadingButton({
   color = "#1E2939",
   textColor = "#fff",
   borderColor,
-  borderRadius = 10,
+  borderRadius = 0,
   width = "100%",
   height = 56,
   fontSize = 16,

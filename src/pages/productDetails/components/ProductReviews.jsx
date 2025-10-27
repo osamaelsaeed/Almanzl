@@ -1,11 +1,22 @@
 import WriteReviewToProduct from "./WriteReviewToProduct";
+import AddReviewToProduct from "./AddReviewToProduct";
+import Review from "./Review";
+import ReviewProvider from "../context/review/ReviewProvider";
 
 function ProductReviews() {
   return (
-    <div className="mt-20">
-      <h2 className="text-2xl font-semibold">Reviews and Rating</h2>
-      <WriteReviewToProduct />
-    </div>
+    <ReviewProvider>
+      <div className="mt-20 w-[80%]">
+        <h2 className="text-2xl font-semibold">Reviews and Rating</h2>
+
+        <WriteReviewToProduct />
+
+        <AddReviewToProduct />
+        {Array.from({ length: 5 }).map((_, index) => (
+          <Review key={index} />
+        ))}
+      </div>
+    </ReviewProvider>
   );
 }
 

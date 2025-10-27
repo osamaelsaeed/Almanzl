@@ -8,7 +8,7 @@ function ProductInfo({ product }) {
   const { date, category, by, favoriteNumber, messageNumber, price } = product;
 
   return (
-    <div className="flex md:flex-row flex-col  items-start md:items-stretch flex-wrap mt-3 text-gray-500">
+    <div className="flex md:flex-row flex-col  items-start md:items-stretch flex-wrap mt-4 text-gray-500">
       <span className="underline">{date}</span>
       <VerticalDivider />
       <span>{category}</span>
