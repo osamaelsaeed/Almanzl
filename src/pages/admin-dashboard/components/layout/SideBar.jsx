@@ -9,6 +9,7 @@ import {
   ChevronRight,
   ShoppingBag,
   Package,
+  CreditCard,
 } from "lucide-react";
 
 const Sidebar = ({ onClose }) => {
@@ -21,23 +22,6 @@ const Sidebar = ({ onClose }) => {
       icon: LayoutDashboard,
       path: "/admin/dashboard",
       type: "link",
-    },
-    {
-      name: "Products",
-      icon: Package,
-      type: "dropdown",
-      children: [
-        {
-          name: "All Products",
-          icon: List,
-          path: "/admin/products",
-        },
-        {
-          name: "Add Product",
-          icon: Plus,
-          path: "/admin/products/add",
-        },
-      ],
     },
     {
       name: "Categories",
@@ -55,6 +39,31 @@ const Sidebar = ({ onClose }) => {
           path: "/admin/categories/add",
         },
       ],
+    },
+
+    {
+      name: "Products",
+      icon: Package,
+      type: "dropdown",
+      children: [
+        {
+          name: "All Products",
+          icon: List,
+          path: "/admin/products",
+        },
+        {
+          name: "Add Product",
+          icon: Plus,
+          path: "/admin/products/add",
+        },
+      ],
+    },
+
+    {
+      name: "Orders",
+      icon: CreditCard,
+      path: "/admin/orders",
+      type: "link",
     },
     {
       name: "Users",
