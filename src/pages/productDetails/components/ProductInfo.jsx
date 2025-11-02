@@ -3,9 +3,11 @@ import HeartIcon from "../../../assets/heart.png";
 import MessageIcon from "../../../assets/message.png";
 import StartIcon from "../../../assets/star.png";
 import Icon from "../../../components/Icon";
+import useProductReviews from "../context/productReviews/useProductReviews";
 
 function ProductInfo({ product }) {
   const { createdAt, category, price } = product;
+  const { productReviews } = useProductReviews();
 
   const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
     year: "numeric",
@@ -18,14 +20,23 @@ function ProductInfo({ product }) {
       <span className="underline">{formattedDate}</span>
       <VerticalDivider />
       <span>{category.name}</span>
-      {/* <VerticalDivider />
-      <span>By {category.name}</span> */}
+      <VerticalDivider />
+      <span>
+        {product.stock > 10
+          ? `${product.stock} items available`
+          : product.stock > 0
+          ? `Only ${product.stock} left in stock, order now`
+          : "Out of stock"}
+      </span>
       <VerticalDivider />
       <Icon icon={HeartIcon} title={"5"} />
       <VerticalDivider />
-      <Icon icon={MessageIcon} title={"4"} />
+      <Icon
+        icon={MessageIcon}
+        title={productReviews.length === 0 ? "-" : productReviews.length}
+      />
       <VerticalDivider />
-      <Icon icon={StartIcon} title="4.5" />
+      <Icon icon={StartIcon} title={product.ratingsAverage} />
       <VerticalDivider />
       <span>{price}$</span>
     </div>

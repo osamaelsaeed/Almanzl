@@ -1,7 +1,7 @@
 import WriteReviewToProduct from "./WriteReviewToProduct";
 import AddReviewToProduct from "./AddReviewToProduct";
 import Review from "./Review";
-import ReviewProvider from "../context/review/ReviewProvider";
+import ReviewAreaVisibilityProvider from "../context/reviewAreaVisibility/ReviewAreaVisibilityProvider";
 import ReviewShimmer from "./ReviewShimmer";
 import Error from "../../../components/Error";
 import RatingProvider from "../context/rating/RatingProvider";
@@ -15,7 +15,7 @@ function ProductReviews() {
   }
 
   return (
-    <ReviewProvider>
+    <ReviewAreaVisibilityProvider>
       <RatingProvider>
         <div className="mt-20 md:w-[80%] w-full">
           <h2 className="text-2xl font-semibold">Reviews and Rating</h2>
@@ -36,7 +36,7 @@ function ProductReviews() {
           )}
         </div>
       </RatingProvider>
-    </ReviewProvider>
+    </ReviewAreaVisibilityProvider>
   );
 }
 

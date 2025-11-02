@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import LoadingButton from "../../../components/LoadingButton";
-import useReview from "../context/review/useReview";
+import useReviewAreaVisibility from "../context/reviewAreaVisibility/useReviewAreaVisibility";
 import useRating from "../context/rating/useRating";
 import { useState } from "react";
 import Constants from "../../../app/constants";
@@ -10,8 +10,9 @@ import { toast } from "react-toastify";
 import useProductReviews from "../context/productReviews/useProductReviews";
 
 function AddReviewToProduct() {
-  const [showTextAreaToWriteReview] = useReview();
-  const [rating, _] = useRating();
+  const [showTextAreaToWriteReview, setShowTextAreaToWriteReview] =
+    useReviewAreaVisibility();
+  const [rating, setRating] = useRating();
   const [reviewText, setReviewText] = useState("");
   const { setProductReviews } = useProductReviews();
 
@@ -32,7 +33,6 @@ function AddReviewToProduct() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDYyZDU2ODA4MTJjNjc5ZDkwNWE4NSIsImlhdCI6MTc2MjA4ODQ2MCwiZXhwIjoxNzYyNjkzMjYwfQ.NoFtMph7R1K1espayNGvwJiYugr8C4XYgknk2V_yk60`,
           },
           body: JSON.stringify({ review: reviewText, rating: rating }),
         }
@@ -42,6 +42,8 @@ function AddReviewToProduct() {
       toast.success("Review added successfully");
       setProductReviews((prevReviews) => [data.data, ...prevReviews]);
       setReviewText("");
+      setRating(0);
+      setShowTextAreaToWriteReview(false);
     } catch (error) {
       toast.error(
         "There is something wrong while adding your review, Try again later"
@@ -62,6 +64,7 @@ function AddReviewToProduct() {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               placeholder="Write a review..."
               rows={5}
+              value={reviewText}
               onChange={(e) => setReviewText(e.target.value)}
               className="border border-gray-300 w-full rounded-md p-3 resize-none focus:outline-none focus:ring-2 focus:ring-[#1E2939]"
             />

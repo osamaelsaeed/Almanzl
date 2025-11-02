@@ -23,8 +23,6 @@ function ProductDetailsPage() {
   }
   const product = data.data;
 
-  console.log(`This is the product: ${JSON.stringify(product)}`);
-
   return (
     <ProductReviewsProvider>
       <div className="flex flex-col md:flex-row mx-4 md:mx-10 my-10 gap-15">
@@ -32,7 +30,7 @@ function ProductDetailsPage() {
           <ProductImages product={product} />
           <ProductInfo product={product} />
           <ProductDescription product={product} />
-          <AddProductToCart />
+          <AddProductToCart product={product} />
           <ProductReviews />
         </div>
 

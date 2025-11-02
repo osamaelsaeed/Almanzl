@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { ReviewContext } from "./ReviewContext";
+import { ReviewAreaVisibilityContext } from "./ReviewAreaVisibilityContext";
 
-export default function ReviewProvider({ children }) {
+export default function ReviewAreaVisibilityProvider({ children }) {
   const [showTextAreaToWriteReview, setShowTextAreaToWriteReview] =
     useState(false);
 
   return (
-    <ReviewContext.Provider
+    <ReviewAreaVisibilityContext.Provider
       value={[showTextAreaToWriteReview, setShowTextAreaToWriteReview]}
     >
       {children}
-    </ReviewContext.Provider>
+    </ReviewAreaVisibilityContext.Provider>
   );
 }

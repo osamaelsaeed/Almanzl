@@ -1,7 +1,7 @@
-import useReview from "../context/review/useReview";
+import useReviewAreaVisibility from "../context/reviewAreaVisibility/useReviewAreaVisibility";
 
 function WriteReviewTextButton() {
-  const [isWritingReview, onWriteReview] = useReview();
+  const [isWritingReview, onWriteReview] = useReviewAreaVisibility();
 
   return (
     <button

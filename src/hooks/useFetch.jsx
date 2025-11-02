@@ -17,8 +17,6 @@ export function useFetch(url) {
         const res = await axios.get(`${Constants.BASE_URL}/${url}`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDYyZDU2ODA4MTJjNjc5ZDkwNWE4NSIsImlhdCI6MTc2MjA4ODQ2MCwiZXhwIjoxNzYyNjkzMjYwfQ.NoFtMph7R1K1espayNGvwJiYugr8C4XYgknk2V_yk60",
           },
         });
         console.log(`This is the res after calling from axios: ${res}`);
