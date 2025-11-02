@@ -21,7 +21,7 @@ function ExpandableText({
   }, [children, maxLines]);
 
   return (
-    <div className={`relative w-full flex flex-col items-end ${className}`}>
+    <div className={`relative w-full flex flex-col items-start ${className}`}>
       <motion.div
         key={expanded ? "expanded" : "collapsed"}
         initial={{ height: 0, opacity: 0 }}

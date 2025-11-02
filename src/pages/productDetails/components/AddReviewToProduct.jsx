@@ -1,18 +1,30 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
+
 import { motion, AnimatePresence } from "framer-motion";
 import LoadingButton from "../../../components/LoadingButton";
 import useReview from "../context/review/useReview";
 import useRating from "../context/rating/useRating";
 import { useState } from "react";
 import Constants from "../../../app/constants";
+import { toast } from "react-toastify";
+import useProductReviews from "../context/productReviews/useProductReviews";
 
 function AddReviewToProduct() {
   const [showTextAreaToWriteReview] = useReview();
   const [rating, _] = useRating();
   const [reviewText, setReviewText] = useState("");
+  const { setProductReviews } = useProductReviews();
 
   async function handleReviewSubmit() {
-    if (!reviewText.trim()) return;
+    if (rating === 0) {
+      toast.error("Please provide a rating before submitting your review.");
+      return;
+    }
+
+    if (!reviewText.trim()) {
+      toast.error("Review text cannot be empty.");
+      return;
+    }
     try {
       const res = await fetch(
         `${Constants.BASE_URL}/products/690716ee329f24ecdb9fe8ab/reviews`,
@@ -27,11 +39,13 @@ function AddReviewToProduct() {
       );
 
       const data = await res.json();
-      console.log("Review submitted:", data);
-
+      toast.success("Review added successfully");
+      setProductReviews((prevReviews) => [data.data, ...prevReviews]);
       setReviewText("");
-    } catch (err) {
-      console.error("Error submitting review:", err);
+    } catch (error) {
+      toast.error(
+        "There is something wrong while adding your review, Try again later"
+      );
     }
   }
 

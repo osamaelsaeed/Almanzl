@@ -7,6 +7,7 @@ import ProductInfo from "./components/ProductInfo";
 import ProductReviews from "./components/ProductReviews";
 import SimilarProducts from "./components/SimilarProducts";
 import Error from "../../components/Error";
+import ProductReviewsProvider from "./context/productReviews/ProductReviewsProvider";
 
 function ProductDetailsPage() {
   const { data, loading, error } = useFetch(
@@ -25,19 +26,21 @@ function ProductDetailsPage() {
   console.log(`This is the product: ${JSON.stringify(product)}`);
 
   return (
-    <div className="flex flex-col md:flex-row mx-4 md:mx-10 my-10 gap-15">
-      <div className="w-full md:w-2/3">
-        <ProductImages product={product} />
-        <ProductInfo product={product} />
-        <ProductDescription product={product} />
-        <AddProductToCart />
-        <ProductReviews />
-      </div>
+    <ProductReviewsProvider>
+      <div className="flex flex-col md:flex-row mx-4 md:mx-10 my-10 gap-15">
+        <div className="w-full md:w-2/3">
+          <ProductImages product={product} />
+          <ProductInfo product={product} />
+          <ProductDescription product={product} />
+          <AddProductToCart />
+          <ProductReviews />
+        </div>
 
-      <div className="w-full md:w-1/3 rounded-lg">
-        <SimilarProducts />
+        <div className="w-full md:w-1/3 rounded-lg">
+          <SimilarProducts />
+        </div>
       </div>
-    </div>
+    </ProductReviewsProvider>
   );
 }
 
