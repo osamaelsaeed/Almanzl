@@ -12,7 +12,7 @@ export default function Navbar() {
           <li className="hover:text-gray-300 cursor-pointer">Home</li>
           <li className="hover:text-gray-300 cursor-pointer">Shop</li>
           <li className="hover:text-gray-300 cursor-pointer">About us</li>
-          <li className="hover:text-gray-300 cursor-pointer">Blog</li>
+          {/* <li className="hover:text-gray-300 cursor-pointer">Blog</li> */}
         </ul>
       </div>
 

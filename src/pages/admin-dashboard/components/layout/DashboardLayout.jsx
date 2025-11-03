@@ -2,8 +2,9 @@ import { useState } from "react";
 import Sidebar from "./SideBar";
 import Navbar from "../../../../components/Navbar";
 import { Menu, X } from "lucide-react";
+import { Outlet } from "react-router-dom";
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -37,7 +38,9 @@ const DashboardLayout = ({ children }) => {
             </div>
           </header>
 
-          <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+          <main className="flex-1 p-6 overflow-y-auto">
+            <Outlet />
+          </main>
         </div>
       </div>
     </div>

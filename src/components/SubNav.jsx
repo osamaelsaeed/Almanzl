@@ -3,7 +3,7 @@ import Error from "./Error";
 import LoadingSpinner from "./LoadingSpinner";
 export default function SubNav() {
   const { data, loading, error } = useFetch(
-    "http://localhost:3000/api/v1/categories"
+    "http://localhost:3000/api/categories"
   );
 
   if (loading) {
@@ -19,7 +19,7 @@ export default function SubNav() {
       <div className="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-center gap-6 text-sm">
         {data?.map((category) => (
           <button
-            key={category.id}
+            key={category._id}
             className="px-4 py-1.5 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors duration-200"
           >
             {category.name}

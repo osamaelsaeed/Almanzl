@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Folder,
@@ -13,9 +14,11 @@ import {
 } from "lucide-react";
 
 const Sidebar = ({ onClose }) => {
+  const location = useLocation();
+
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-
+  const [activeLink, setActiveLink] = useState();
   const menuItems = [
     {
       name: "Dashboard",
@@ -74,7 +77,7 @@ const Sidebar = ({ onClose }) => {
   ];
 
   const isActiveLink = (path) => {
-    return location.pathname === path;
+    return activeLink === path;
   };
 
   const handleLinkClick = () => {
@@ -82,14 +85,17 @@ const Sidebar = ({ onClose }) => {
       onClose?.();
     }
   };
+  useEffect(() => {
+    setActiveLink(location.pathname);
+  }, [location]);
 
   const renderMenuItem = (item, index) => {
     if (item.type === "link") {
       const Icon = item.icon;
       return (
-        <a
+        <Link
           key={index}
-          href={item.path}
+          to={item.path}
           onClick={handleLinkClick}
           className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
             isActiveLink(item.path)
@@ -99,7 +105,7 @@ const Sidebar = ({ onClose }) => {
         >
           <Icon size={20} className="mr-3" />
           {item.name}
-        </a>
+        </Link>
       );
     }
 
@@ -132,9 +138,9 @@ const Sidebar = ({ onClose }) => {
               {item.children.map((child, childIndex) => {
                 const ChildIcon = child.icon;
                 return (
-                  <a
+                  <Link
                     key={childIndex}
-                    href={child.path}
+                    to={child.path}
                     onClick={handleLinkClick}
                     className={`flex items-center px-3 py-2 text-sm rounded-lg transition-colors ${
                       isActiveLink(child.path)
@@ -144,7 +150,7 @@ const Sidebar = ({ onClose }) => {
                   >
                     <ChildIcon size={16} className="mr-2" />
                     {child.name}
-                  </a>
+                  </Link>
                 );
               })}
             </div>
