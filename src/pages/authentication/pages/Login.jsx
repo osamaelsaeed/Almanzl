@@ -18,25 +18,14 @@ export default function Login() {
     mode: "onChange",
   });
 
-<<<<<<< HEAD
-  const submit = async () => {
-    if (!form.email || !form.password) {
-      toast.error("Email and password are required");
-      return;
-    }
-    const user = await login(form);
+  const onSubmit = async (data) => {
+    const user = await login(data);
     if (user) {
       if (user.isAdmin) {
         navigate("/admin/dashboard", { replace: true });
       } else {
         navigate(from, { replace: true });
       }
-=======
-  const onSubmit = async (data) => {
-    const isSuccess = await login(data);
-    if (isSuccess) {
-      navigate(from, { replace: true });
->>>>>>> 94fdc5246e79abea241f11da94d67f43b15595b7
     }
   };
 
