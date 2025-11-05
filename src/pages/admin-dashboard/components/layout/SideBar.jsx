@@ -178,14 +178,14 @@ const Sidebar = ({ onClose }) => {
                     {user?.email}
                   </p>
                 </div>
-                <Link
+                {/* <Link
                   to="/profile"
                   className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   onClick={() => setIsUserMenuOpen(false)}
                 >
                   <User size={16} className="mr-2" />
                   Profile
-                </Link>
+                </Link> */}
                 <button
                   onClick={() => {
                     setIsUserMenuOpen(false);
