@@ -16,7 +16,7 @@ const AllProducts = () => {
     return <Error resource="products" error={error} />;
   }
 
-  if (products?.length === 0) {
+  if (products !== null && !loading && products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 px-4">
         <div className="text-center">

@@ -11,9 +11,14 @@ import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import ProductImagesCarousel from "./components/ProductImagesCarousel";
 import CircularProgressIndicator from "../../components/CircularProgressIndicator";
+import { useEffect } from "react";
 
 function ProductDetailsPage() {
   const { id } = useParams();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   const { data: product, loading, error } = useFetch(`/products/${id}`);
   if (error) {
     return <Error message={error} />;
