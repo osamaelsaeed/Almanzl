@@ -25,6 +25,7 @@ import ForgotPassword from "../pages/authentication/pages/ForgotPassword";
 import ResetPassword from "../pages/authentication/pages/ResetPassword";
 import Profile from "../pages/ProfilePage";
 import AllProducts from "../components/AllProducts";
+import Contact from "../pages/Contact/contact";
 
 function AppRoutes() {
   return (
@@ -40,7 +41,7 @@ function AppRoutes() {
             </ProductProvider>
           }
         />
-        <Route path="/contact" element={<h1>contact</h1>} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<h1>about</h1>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
