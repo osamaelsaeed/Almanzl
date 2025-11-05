@@ -6,7 +6,7 @@ export default function UnAuthorized() {
       <h1 className="text-6xl font-bold mb-4 text-black">403</h1>
       <h2 className="text-2xl font-semibold mb-6">Unauthorized</h2>
       <p className="text-gray-600 mb-8">
-        Sorry, the page you're not authorized to access this page.
+        Sorry, you're not authorized to access this page.
       </p>
       <Link
         to="/"
