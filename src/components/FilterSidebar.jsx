@@ -19,7 +19,7 @@ const FilterSidebar = () => {
         fetchCategories();
     }, []);
 
-    const { category, setCategory, priceRange, setPriceRange } =
+    const { category, setCategory, priceRange, setPriceRange, setQuery } =
         useContext(ProductsContext);
 
     useEffect(() => {
@@ -28,9 +28,10 @@ const FilterSidebar = () => {
 
     const handlePriceChange = (e) => {
         const { name, value } = e.target;
-        setLocalPriceRange((prev) => ({ ...prev, [name]: Number(value) || 0 }));
+        setLocalPriceRange((prev) => ({ ...prev, [name]: Number(value) * 1 || 0 }));
+        setCategory("");
     };
-
+    
     useEffect(() => {
         const timer = setTimeout(() => {
             if (
@@ -39,15 +40,22 @@ const FilterSidebar = () => {
             ) {
                 setPriceRange(localPriceRange);
             }
-        }, 500); // 500ms delay
-
+        }, 2000); 
+        
+        
         return () => clearTimeout(timer);
     }, [localPriceRange]);
 
     const handleClearFilters = () => {
+        setQuery("");
         setCategory("");
-        setLocalPriceRange({ min: 0, max: 10_000 });
         setPriceRange({ min: 0, max: 10_000 });
+    };
+
+    const chooseCategory = (e, id) => {
+        setQuery("");
+        setPriceRange({ min: 0, max: 10_000 });
+        setCategory(id);
     };
 
     return (
@@ -72,7 +80,7 @@ const FilterSidebar = () => {
                                 name="category"
                                 value={cat._id}
                                 checked={category === cat._id}
-                                onChange={() => setCategory(cat._id)}
+                                onChange={() => chooseCategory(event, cat._id)}
                                 className="cursor-pointer"
                             />
                             <span className="text-sm">{cat.name}</span>

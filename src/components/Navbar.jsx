@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../pages/authentication/context/AuthContext";
 import { CartContext } from "../pages/cart/context/CartContext";
 import SearchContext from "../context/search/SearchContext";
+import { ProductsContext } from "../context/product/ProductContext";
 
 export default function Navbar() {
     const { cart } = useContext(CartContext);
@@ -27,6 +28,8 @@ export default function Navbar() {
         return () => document.removeEventListener("click", handleClickOutside);
     }, []);
 
+
+    // const { setCategory, setPriceRange } = useContext(ProductsContext);
     const handleSearch = (e) => {
         setSearchWord(e.target.value)
     };
@@ -36,6 +39,9 @@ export default function Navbar() {
             navigate('/products');
             setQuery(searchWord);
             e.target.blur();
+            console.log('searching', searchWord);
+            // setCategory("");
+            // setPriceRange({ min: 0, max: 10_000 });            
         }
     }
 

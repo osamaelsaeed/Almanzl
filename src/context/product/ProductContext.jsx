@@ -6,7 +6,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 export const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
-    const { query } = useContext(SearchContext);
+    const { query, setQuery } = useContext(SearchContext);
     const [products, setProducts] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -42,19 +42,27 @@ export const ProductsProvider = ({ children }) => {
             params["price[lte]"] = priceRange.max.toString();
 
         const currentParams = Object.fromEntries(searchParams.entries());
-        const paramsChanged =
-            JSON.stringify(currentParams) !== JSON.stringify(params);
-
+        const paramsChanged = JSON.stringify(currentParams) !== JSON.stringify(params);
         if (paramsChanged) {
             setSearchParams(params);
         }
+
     }, [page, limit, category, priceRange]);
 
     let productsUrl = `/products?page=${page}&limit=${limit}`;
-    if (query && query.trim()) productsUrl += `&name=${query}`;
-    if (category) productsUrl += `&category=${category}`;
-    if (priceRange.min > 0) productsUrl += `&price[gte]=${priceRange.min}`;
-    if (priceRange.max < 10_000) productsUrl += `&price[lte]=${priceRange.max}`;
+
+    const isSearching = query && query.trim().length > 0;
+    if(isSearching) {
+        productsUrl += `&name=${query}`;
+    }
+    else if(category) {
+        productsUrl += `&category=${category}`;
+        if (priceRange.min > 0) productsUrl += `&price[gte]=${priceRange.min}`;
+        if (priceRange.max < 10_000) productsUrl += `&price[lte]=${priceRange.max}`;
+    }
+    
+    if (!isSearching && priceRange.min > 0) productsUrl += `&price[gte]=${priceRange.min}`;
+    if (!isSearching && priceRange.max < 10_000) productsUrl += `&price[lte]=${priceRange.max}`;
 
     const { data, loading, error } = useFetch(productsUrl);
 
@@ -84,6 +92,7 @@ export const ProductsProvider = ({ children }) => {
                 setCategory,
                 priceRange,
                 setPriceRange,
+                setQuery,
             }}
         >
             {children}
