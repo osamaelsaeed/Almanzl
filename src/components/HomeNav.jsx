@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../pages/authentication/context/AuthContext";
 import { CartContext } from "../pages/cart/context/CartContext";
 import SearchContext from "../context/search/SearchContext";
+import { ProductsContext } from "../context/product/ProductContext";
 
 export default function HomeNav() {
     const { user, logout } = useContext(AuthContext);
@@ -23,6 +24,8 @@ export default function HomeNav() {
     }, []);
     
     const { query, setQuery } = useContext(SearchContext);
+    const { setCategory, setPriceRange } = useContext(ProductsContext);
+    
     const [searchWord, setSearchWord] = useState(query);
 
     const handleSearch = (e) => {
@@ -34,7 +37,15 @@ export default function HomeNav() {
             navigate('/products');
             setQuery(searchWord);
             e.target.blur();
+            setCategory("");
+            setPriceRange({ min: 0, max: 10_000 });    
         }
+    }
+
+    const handleShop = () => { 
+        setQuery("");
+        setCategory("");
+        setPriceRange({ min: 0, max: 10_000 });
     }
 
     return (
@@ -49,7 +60,7 @@ export default function HomeNav() {
                         <Link to="/">Home</Link>
                     </li>
                     <li className="hover:text-yellow-400 cursor-pointer transition">
-                        <Link to="/products">Shop</Link>
+                        <Link to="products" onClick={handleShop}>Shop</Link>
                     </li>
                     <li className="hover:text-yellow-400 cursor-pointer transition">
                         <Link to="/about">About us</Link>
