@@ -30,7 +30,7 @@ const ProductCard = ({ name, price, image, link = "#" }) => {
       <div className="mt-5 text-center transition-colors duration-300 hover:text-yellow-500">
         <Link to={link}>
           <h3 className="text-lg font-semibold">{name}</h3>
-          <p className="text-gray-700">{price}</p>
+          <p className="text-gray-700">${price}</p>
         </Link>
       </div>
     </motion.div>

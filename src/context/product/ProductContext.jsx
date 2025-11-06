@@ -6,9 +6,9 @@ import { useLocation, useSearchParams } from "react-router-dom";
 export const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
-  const { query } = useContext(SearchContext);
-  const [products, setProducts] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+    const { query, setQuery } = useContext(SearchContext);
+    const [products, setProducts] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
 
   const [page, setPage] = useState(
     () => parseInt(searchParams.get("page")) || 1
@@ -41,22 +41,21 @@ export const ProductsProvider = ({ children }) => {
     if (priceRange.max < 10_000)
       params["price[lte]"] = priceRange.max.toString();
 
-    const currentParams = Object.fromEntries(searchParams.entries());
-    const paramsChanged =
-      JSON.stringify(currentParams) !== JSON.stringify(params);
+        const currentParams = Object.fromEntries(searchParams.entries());
+        const paramsChanged = JSON.stringify(currentParams) !== JSON.stringify(params);
+        if (paramsChanged) {
+            setSearchParams(params);
+        }
 
-    if (paramsChanged) {
-      setSearchParams(params);
-    }
-  }, [page, limit, category, priceRange]);
+    }, [page, limit, category, priceRange]);
 
-  let productsUrl = `/products?page=${page}&limit=${limit}`;
-  if (query && query.trim()) productsUrl += `&name=${query}`;
-  if (category) productsUrl += `&category=${category}`;
-  if (priceRange.min > 0) productsUrl += `&price[gte]=${priceRange.min}`;
-  if (priceRange.max < 10_000) productsUrl += `&price[lte]=${priceRange.max}`;
-
-  const { data, loading, error } = useFetch(productsUrl);
+    let productsUrl = `/products?page=${page}&limit=${limit}`;
+    if(query && query.trim().length > 0) productsUrl += `&name=${query}`;
+    if(category) productsUrl += `&category=${category}`;
+    if (priceRange.min > 0) productsUrl += `&price[gte]=${priceRange.min}`;
+    if (priceRange.max < 10_000) productsUrl += `&price[lte]=${priceRange.max}`;
+    
+    const { data, loading, error } = useFetch(productsUrl);
 
   useEffect(() => {
     if (data) setProducts(data);
@@ -70,23 +69,24 @@ export const ProductsProvider = ({ children }) => {
     setPage(1);
   }, [category, priceRange.min, priceRange.max]);
 
-  return (
-    <ProductsContext.Provider
-      value={{
-        products,
-        loading,
-        error,
-        page,
-        setPage,
-        limit,
-        setLimit,
-        category,
-        setCategory,
-        priceRange,
-        setPriceRange,
-      }}
-    >
-      {children}
-    </ProductsContext.Provider>
-  );
+    return (
+        <ProductsContext.Provider
+            value={{
+                products,
+                loading,
+                error,
+                page,
+                setPage,
+                limit,
+                setLimit,
+                category,
+                setCategory,
+                priceRange,
+                setPriceRange,
+                setQuery,
+            }}
+        >
+            {children}
+        </ProductsContext.Provider>
+    );
 };

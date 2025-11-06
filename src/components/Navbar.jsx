@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../pages/authentication/context/AuthContext";
 import { CartContext } from "../pages/cart/context/CartContext";
 import SearchContext from "../context/search/SearchContext";
+import { ProductsContext } from "../context/product/ProductContext";
 
 export default function Navbar() {
     const { cart } = useContext(CartContext);
@@ -27,6 +28,8 @@ export default function Navbar() {
         return () => document.removeEventListener("click", handleClickOutside);
     }, []);
 
+
+    const { setCategory, setPriceRange } = useContext(ProductsContext);
     const handleSearch = (e) => {
         setSearchWord(e.target.value)
     };
@@ -36,7 +39,15 @@ export default function Navbar() {
             navigate('/products');
             setQuery(searchWord);
             e.target.blur();
+            setCategory("");
+            setPriceRange({ min: 0, max: 10_000 });            
         }
+    }
+
+    const handleShop = () => { 
+        setQuery("");
+        setCategory("");
+        setPriceRange({ min: 0, max: 10_000 });
     }
 
 
@@ -52,7 +63,7 @@ export default function Navbar() {
                         <Link to="/">Home</Link>
                     </li>
                     <li className="hover:text-yellow-400 cursor-pointer">
-                        <Link to="products">Shop</Link>
+                        <Link to="products" onClick={handleShop}>Shop</Link>
                     </li>
                     <li className="hover:text-yellow-400 cursor-pointer">
                         <Link to="about">About us</Link>
