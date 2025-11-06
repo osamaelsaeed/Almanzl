@@ -34,7 +34,11 @@ function ProductDetailsPage() {
         <div className="w-full md:w-3/4">
           <ProductImagesCarousel product={product} />
           <ProductInfo product={product} />
-          <ProductDescription product={product} />
+          <ProductDescription
+            product={product}
+            showTitle={false}
+            className="mt-5"
+          />
           <ProductQuantityProvider>
             <AddProductToCart product={product} />
           </ProductQuantityProvider>
